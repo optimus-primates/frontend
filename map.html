@@ -11,6 +11,7 @@
 	var map;
 	var service;
 	var PLACES_LIMIT = 10;	
+	var requestedTag;
 	var taxiData = new Array();
 	
 		/* Useful functions */
@@ -76,7 +77,9 @@
 //					map:map
 //					});
 //				}
+				taxiData = [];
 				for (var i = 0; i < results.length; i++) {
+					
 					taxiData.push(new google.maps.LatLng (results[i].geometry.location.A, results[i].geometry.location.F));
 				}
 		
@@ -118,23 +121,8 @@
 	
 		function performSearch () {
 		
-		var requestRestaurant = {
-			bounds: map.getBounds(),
-			types: ['restaurant']};
-		
-		var requestTech = {
-			bounds: map.getBounds(),
-			types: ['electronics_store']};
 			
-		var requestClothes = {
-			bounds: map.getBounds(),
-			types: ['clothing_store']};
-		
-		var requestBook = {
-			bounds: map.getBounds(),
-			types: ['book_store']};
-			
-		service.radarSearch(requestRestaurant, handleSearchResults);
+		service.radarSearch(requestedTag, handleSearchResults);
 		//service.radarSearch(requestTech, handleSearchResults);
 		//service.radarSearch(requestClothes, handleSearchResults);
 		//service.radarSearch(requestBook, handleSearchResults);
@@ -152,12 +140,42 @@
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
 			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-	
+
 	service = new google.maps.places.PlacesService(map);
 	//wait for bounds to exist and then performSearch (cannot do with listener otherwise I'll call this for every zoom in/out)
 	google.maps.event.addListenerOnce(map, 'bounds_changed', performSearch);
 	
 	
+	}
+	
+	function refreshPage () {	
+		
+		var requestRestaurant = {
+			bounds: map.getBounds(),
+			types: ['restaurant']};
+		
+		var requestTech = {
+			bounds: map.getBounds(),
+			types: ['electronics_store']};
+			
+		var requestClothes = {
+			bounds: map.getBounds(),
+			types: ['clothing_store']};
+		
+		var requestBook = {
+			bounds: map.getBounds(),
+			types: ['book_store']};
+			
+		if (document.getElementById('food').checked) 
+			requestedTag=requestRestaurant;
+		else if (document.getElementById('electronics').checked) 
+			requestedTag=requestTech;
+		else if (document.getElementById('clothes').checked) 
+			requestedTag=requestClothes;
+		else if (document.getElementById('books').checked) 
+			requestedTag=requestBook;
+			
+		initialize();
 	}
 	
 	</script>
@@ -226,7 +244,7 @@
 			<label for="books"><img src="books.png" height="80" width="80" /></label>
 			
 			<br></br>
-			<button type="button" id="submit">Refresh</button>
+			<button type="button" onclick="refreshPage()" id="submit">Refresh</button>
 			</div>
 		</div>
 	</div>
