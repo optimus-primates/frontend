@@ -75,10 +75,26 @@
 	
 		function performSearch () {
 		
-		var request = {
+		var requestRestaurant = {
 			bounds: map.getBounds(),
-			types: ['food']};
-		service.radarSearch(request, handleSearchResults);
+			types: ['restaurant']};
+		
+		var requestTech = {
+			bounds: map.getBounds(),
+			types: ['electronics_store']};
+			
+		var requestClothes = {
+			bounds: map.getBounds(),
+			types: ['clothing_store']};
+		
+		var requestBook = {
+			bounds: map.getBounds(),
+			types: ['book_store']};
+			
+		service.radarSearch(requestRestaurant, handleSearchResults);
+		//service.radarSearch(requestTech, handleSearchResults);
+		//service.radarSearch(requestClothes, handleSearchResults);
+		//service.radarSearch(requestBook, handleSearchResults);
 		
 		
 		}
