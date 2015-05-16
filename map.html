@@ -11,11 +11,13 @@
 	var map;
 	var service;
 	var PLACES_LIMIT = 10;	
-	var requestedTag;
+	var requestedTag= {
+		bounds: "",
+		types: []};;
 	var heatmap;
-	var newGradient;
+	var newColor1, newColor2;
 	var taxiData = new Array();
-	
+
 
 		/* Useful functions */
 		/* ON-OFF the heatmap */ 
@@ -34,7 +36,6 @@
 	
 		function handleSearchResults(results,status){
 		
-		console.log(results);
 		
 		var positionScreenOne = new google.maps.LatLng(57.707065, 11.968627);
 		var positionScreenTwo = new google.maps.LatLng(57.708545, 11.973627);
@@ -73,30 +74,18 @@
 
 	heatmap = new google.maps.visualization.HeatmapLayer({
     data: pointArray,
-	radius : 40
+	radius : 60
 	});
 	
 	var opValue = 0.2;
-	heatmap.set('gradient', heatmap.get('gradient') ? null : newGradient);
+	heatmap.set('gradient',['rgba(0, 255, 255, 0)',newColor1, newColor2]);
 	heatmap.setMap(map);
-	
-	//changeGradientFashion();
-	//changeGradientRestaurant();
-	//changeGradientBook();
-	//changeGradientTech();
-	//changeRadius();
-
-
 	}
 	
 		function performSearch () {
 		
 			
 		service.radarSearch(requestedTag, handleSearchResults);
-		//service.radarSearch(requestTech, handleSearchResults);
-		//service.radarSearch(requestClothes, handleSearchResults);
-		//service.radarSearch(requestBook, handleSearchResults);
-		
 		
 		}
 	
@@ -119,43 +108,41 @@
 	}
 	
 	function refreshPage () {	
-	
-		var requestRestaurant = {
-		bounds: map.getBounds(),
-		types: ['restaurant']};
-
-	var requestTech = {
-		bounds: map.getBounds(),
-		types: ['electronics_store']};
-
-	var requestClothes = {
-		bounds: map.getBounds(),
-		types: ['clothing_store']};
-
-	var requestBook = {
-		bounds: map.getBounds(),
-		types: ['book_store']};
-
+	requestedTag.types = [];
 			
+	requestedTag.bounds = map.getBounds();		
+	
 		if (document.getElementById('food').checked){
-			requestedTag=requestRestaurant;
-			newGradient = ['rgba(0, 255, 255, 0)','red', 'yellow'];
+			requestedTag.types.push('restaurant');
+			
+				newColor1='#FF0000';
+				newColor2='#FFFF00';
+
 			}
-		else if (document.getElementById('electronics').checked) {
-			requestedTag=requestTech;
-			newGradient = ['rgba(0, 255, 255, 0)','blue', 'aqua']
+		if (document.getElementById('electronics').checked) {
+			requestedTag.types.push('electronics_store');
+
+				newColor1='#0000FF';
+				newColor2='#00FFFF';
+
 			}
-		else if (document.getElementById('clothes').checked){
-			requestedTag=requestClothes;
-			newGradient = ['rgba(0, 255, 255, 0)','lime', 'green']
+		if (document.getElementById('clothes').checked){
+			requestedTag.types.push('clothing_store');
+
+				newColor1='#00FF00';
+				newColor2='#008000';
+
 			}
-		else if (document.getElementById('books').checked){
-			newGradient = ['rgba(0, 255, 255, 0)','black', 'silver']
-			requestedTag=requestBook;
+		if (document.getElementById('books').checked){
+			requestedTag.types.push('book_store');
+
+				newColor1='#000000';
+				newColor2='#C0C0C0';
+
 		}
+
 		initialize();
 	}
-	
 	</script>
 </head>
 
@@ -206,19 +193,19 @@
 			<br></br>-->
 			
 			
-			<div class = "radio-wrapper" align="center">
-			<input type="radio" id="clothes" name="value"/>
+			<div class = "checkbox-wrapper" align="center">
+			<input type="checkbox" id="clothes" name="value"/>
 			<label for="clothes"><img src="clothes.png" height="80" width="80" /></label>
 			
-			<input type="radio" id="food" name="value"/>
+			<input type="checkbox" id="food" name="value"/>
 			<label for="food"><img src="food.png" height="80" width="80" /></label>
 			
 			<br></br>
 			
-			<input type="radio" id="electronics" name="value"/>
+			<input type="checkbox" id="electronics" name="value"/>
 			<label for="electronics"><img src="electronics.png" height="80" width="80" /></label>
 			
-			<input type="radio" id="books" name="value"/>
+			<input type="checkbox" id="books" name="value"/>
 			<label for="books"><img src="books.png" height="80" width="80" /></label>
 			
 			<br></br>

@@ -55,11 +55,11 @@ body {
 	border-bottom-color: #FFF;
 }
 
-input[type=radio] {
+input[type=checkbox] {
     display:none;
   }
 
-  input[type=radio] + label
+  input[type=checkbox] + label
    {
        background: #999;
 
@@ -67,7 +67,7 @@ input[type=radio] {
        padding: 0 0 0 0px;
    }
 
-   input[type=radio]:checked + label
+   input[type=checkbox]:checked + label
     {
         background: #0080FF;
 
