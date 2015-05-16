@@ -12,8 +12,11 @@
 	var service;
 	var PLACES_LIMIT = 10;	
 	var requestedTag;
+	var heatmap;
+	var newGradient;
 	var taxiData = new Array();
 	
+
 		/* Useful functions */
 		/* ON-OFF the heatmap */ 
 		function toggleHeatmap() {
@@ -30,33 +33,25 @@
 		
 		function changeGradientRestaurant(){
 		
-		var gradRes = ['rgba(0, 255, 255, 0)','red', 'yellow']
-		heatmap.set('gradient', heatmap.get('gradient') ? null : gradRes);
-
+		newGradient = ['rgba(0, 255, 255, 0)','red', 'yellow']
 		
 		}
 		
 		function changeGradientFashion(){
 		
-		var gradFash = ['rgba(0, 255, 255, 0)','lime', 'green']
-		heatmap.set('gradient', heatmap.get('gradient') ? null : gradFash);
-
+		newGradient = ['rgba(0, 255, 255, 0)','lime', 'green']
 		
 		}
 		
 		function changeGradientBook(){
 		
-		var gradBook = ['rgba(0, 255, 255, 0)','black', 'silver']
-		heatmap.set('gradient', heatmap.get('gradient') ? null : gradBook);
-
+		newGradient = ['rgba(0, 255, 255, 0)','black', 'silver']
 		
 		}
 		
 		function changeGradientTech(){
 		
-		var gradTech = ['rgba(0, 255, 255, 0)','blue', 'aqua']
-		heatmap.set('gradient', heatmap.get('gradient') ? null : gradTech);
-
+		newGradient = ['rgba(0, 255, 255, 0)','blue', 'aqua']
 		
 		}
 
@@ -106,8 +101,9 @@
     data: pointArray,
 	radius : 40
 	});
-
+	
 	var opValue = 0.2;
+	heatmap.set('gradient', heatmap.get('gradient') ? null : newGradient);
 	heatmap.setMap(map);
 	
 	//changeGradientFashion();
@@ -132,7 +128,7 @@
 	
 		function initialize () {	
 		
-			var heatmap;
+			
 			
 			var mapOptions = {
 				center: new google.maps.LatLng(57.708037,11.9683625),
@@ -149,32 +145,40 @@
 	}
 	
 	function refreshPage () {	
-		
+	
 		var requestRestaurant = {
-			bounds: map.getBounds(),
-			types: ['restaurant']};
-		
-		var requestTech = {
-			bounds: map.getBounds(),
-			types: ['electronics_store']};
+		bounds: map.getBounds(),
+		types: ['restaurant']};
+
+	var requestTech = {
+		bounds: map.getBounds(),
+		types: ['electronics_store']};
+
+	var requestClothes = {
+		bounds: map.getBounds(),
+		types: ['clothing_store']};
+
+	var requestBook = {
+		bounds: map.getBounds(),
+		types: ['book_store']};
+
 			
-		var requestClothes = {
-			bounds: map.getBounds(),
-			types: ['clothing_store']};
-		
-		var requestBook = {
-			bounds: map.getBounds(),
-			types: ['book_store']};
-			
-		if (document.getElementById('food').checked) 
+		if (document.getElementById('food').checked){
 			requestedTag=requestRestaurant;
-		else if (document.getElementById('electronics').checked) 
+			changeGradientRestaurant();
+			}
+		else if (document.getElementById('electronics').checked) {
 			requestedTag=requestTech;
-		else if (document.getElementById('clothes').checked) 
+			changeGradientTech();
+			}
+		else if (document.getElementById('clothes').checked){
+			changeGradientFashion();
 			requestedTag=requestClothes;
-		else if (document.getElementById('books').checked) 
+			}
+		else if (document.getElementById('books').checked){
+			changeGradientBook();
 			requestedTag=requestBook;
-			
+		}
 		initialize();
 	}
 	
