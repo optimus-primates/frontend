@@ -5,24 +5,30 @@
 	<title>GOTHENBURG STARTUP ARENA</title>		
 	<link href ="main.css" rel ="stylesheet"></link>
 	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places">
+		src="https://maps.googleapis.com/maps/api/js?libraries=visualization,places">
 	</script>
 	<script type="text/javascript">	
 	var map;
 	var service;
-	var PLACES_LIMIT = 10;
+	var PLACES_LIMIT = 10;	
+	var taxiData = new Array(PLACES_LIMIT);
 	
 		function handleSearchResults(results,status){
 		
+		console.log(results);
+		
 		var positionScreenOne = new google.maps.LatLng(57.707065, 11.968627);
 		var positionScreenTwo = new google.maps.LatLng(57.708545, 11.973627);
+		
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
 				for (var i = 0; i < PLACES_LIMIT; i++) {
 					var marker = new google.maps.Marker({
 					position: results[i].geometry.location, 
 					map:map
 					});
-					
+				}
+				for (var i = 0; i < PLACES_LIMIT; i++) {
+					taxiData.push(new google.maps.LatLng (results[i].geometry.location.Pa, results[i].geometry.location.Qa));
 				}
 		
 			}
@@ -41,6 +47,15 @@
 							icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",							
 							map:map
 							});
+							
+	var pointArray = new google.maps.MVCArray(taxiData);
+
+	heatmap = new google.maps.visualization.HeatmapLayer({
+    data: pointArray
+	});
+
+	heatmap.setMap(map);
+
 
 		}
 	
@@ -56,6 +71,7 @@
 	
 		function initialize () {	
 		
+			var heatmap;
 			
 			var mapOptions = {
 				center: new google.maps.LatLng(57.708037,11.9683625),
