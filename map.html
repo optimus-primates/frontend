@@ -30,32 +30,6 @@
 		function changeOpacity(opValue) {
 		heatmap.set('opacity', heatmap.get('opacity') ? null : opValue);
 		}
-		
-		function changeGradientRestaurant(){
-		
-		newGradient = ['rgba(0, 255, 255, 0)','red', 'yellow']
-		
-		}
-		
-		function changeGradientFashion(){
-		
-		newGradient = ['rgba(0, 255, 255, 0)','lime', 'green']
-		
-		}
-		
-		function changeGradientBook(){
-		
-		newGradient = ['rgba(0, 255, 255, 0)','black', 'silver']
-		
-		}
-		
-		function changeGradientTech(){
-		
-		newGradient = ['rgba(0, 255, 255, 0)','blue', 'aqua']
-		
-		}
-
-
 
 	
 		function handleSearchResults(results,status){
@@ -165,18 +139,18 @@
 			
 		if (document.getElementById('food').checked){
 			requestedTag=requestRestaurant;
-			changeGradientRestaurant();
+			newGradient = ['rgba(0, 255, 255, 0)','red', 'yellow'];
 			}
 		else if (document.getElementById('electronics').checked) {
 			requestedTag=requestTech;
-			changeGradientTech();
+			newGradient = ['rgba(0, 255, 255, 0)','blue', 'aqua']
 			}
 		else if (document.getElementById('clothes').checked){
-			changeGradientFashion();
 			requestedTag=requestClothes;
+			newGradient = ['rgba(0, 255, 255, 0)','lime', 'green']
 			}
 		else if (document.getElementById('books').checked){
-			changeGradientBook();
+			newGradient = ['rgba(0, 255, 255, 0)','black', 'silver']
 			requestedTag=requestBook;
 		}
 		initialize();
