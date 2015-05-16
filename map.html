@@ -48,6 +48,8 @@
 		
 		var positionScreenOne = new google.maps.LatLng(57.707065, 11.968627);
 		var positionScreenTwo = new google.maps.LatLng(57.708545, 11.973627);
+		var positionScreenThree = new google.maps.LatLng(57.709299, 11.968869);
+		var positionScreenFour = new google.maps.LatLng(57.705663, 11.978735);
 		
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
 			console.log(results.length);
@@ -78,6 +80,19 @@
 							icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",							
 							map:map
 							});
+							
+			var markerScreen2 = new google.maps.Marker({	
+				title: "SCREEN 3",
+				position: positionScreenThree,
+				icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",							
+				map:map
+			});
+			var markerScreen2 = new google.maps.Marker({	
+				title: "SCREEN 4",
+				position: positionScreenFour,
+				icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",							
+				map:map
+			});
 							
 	var pointArray = new google.maps.MVCArray(taxiData);
 
@@ -191,18 +206,7 @@
 			</div>
 			
 			<br></br>
-			<!--<p align ="center"> Weather </p>	
-			
-			<img src="sun.png" height="42" width="42" />
-			<img src="rain.png" height="42" width="42" style = "float :right" />
-			
-			<div class ="slider"align = "center">
-				
-				<form ><input type="range" id = "WeatherSlider" min="1" max="2" step="1" ></form>
-				
-			</div>
-			<br></br>-->
-			
+
 			
 			<div class = "checkbox-wrapper" align="center">
 			<input type="checkbox" id="clothes" name="value"/>
