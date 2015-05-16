@@ -11,7 +11,7 @@
 	var map;
 	var service;
 	var PLACES_LIMIT = 10;	
-	var taxiData = new Array(PLACES_LIMIT);
+	var taxiData = new Array();
 	
 		/* Useful functions */
 		/* ON-OFF the heatmap */ 
@@ -22,6 +22,43 @@
 		function changeRadius() {
 			heatmap.set('radius', heatmap.get('radius') ? null : 100);
 		}
+		
+		function changeOpacity(opValue) {
+		heatmap.set('opacity', heatmap.get('opacity') ? null : opValue);
+		}
+		
+		function changeGradientRestaurant(){
+		
+		var gradRes = ['rgba(0, 255, 255, 0)','red', 'yellow']
+		heatmap.set('gradient', heatmap.get('gradient') ? null : gradRes);
+
+		
+		}
+		
+		function changeGradientFashion(){
+		
+		var gradFash = ['rgba(0, 255, 255, 0)','lime', 'green']
+		heatmap.set('gradient', heatmap.get('gradient') ? null : gradFash);
+
+		
+		}
+		
+		function changeGradientBook(){
+		
+		var gradBook = ['rgba(0, 255, 255, 0)','black', 'silver']
+		heatmap.set('gradient', heatmap.get('gradient') ? null : gradBook);
+
+		
+		}
+		
+		function changeGradientTech(){
+		
+		var gradTech = ['rgba(0, 255, 255, 0)','blue', 'aqua']
+		heatmap.set('gradient', heatmap.get('gradient') ? null : gradTech);
+
+		
+		}
+
 
 
 	
@@ -67,7 +104,13 @@
 	radius : 40
 	});
 
+	var opValue = 0.2;
 	heatmap.setMap(map);
+	
+	//changeGradientFashion();
+	//changeGradientRestaurant();
+	//changeGradientBook();
+	//changeGradientTech();
 	//changeRadius();
 
 
