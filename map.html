@@ -15,10 +15,19 @@
 		bounds: "",
 		types: []};;
 	var heatmap;
+	var hourDistance;
 	var newColor1, newColor2;
 	var taxiData = new Array();
 
 
+	function randInt(max, min) {
+    return ((min | 0) + Math.random() * (max + 1)) | 0;
+	}
+	
+	function remRandom(arr, newLength) {
+    while (arr.length > newLength) arr.splice(randInt(arr.length - 1), 1);
+    return arr;
+}
 		/* Useful functions */
 		/* ON-OFF the heatmap */ 
 		function toggleHeatmap() {
@@ -41,13 +50,13 @@
 		var positionScreenTwo = new google.maps.LatLng(57.708545, 11.973627);
 		
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
-//				for (var i = 0; i < results.length; i++) {
-//					var marker = new google.maps.Marker({
-//					position: results[i].geometry.location, 
-//					map:map
-//					});
-//				}
-				taxiData = [];
+			console.log(results.length);
+
+			var tmp = results.length - Math.floor(results.length/100*hourDistance*4);
+			
+			results = remRandom(results,tmp);
+			console.log(results.length);
+			taxiData = [];
 				for (var i = 0; i < results.length; i++) {
 					
 					taxiData.push(new google.maps.LatLng (results[i].geometry.location.A, results[i].geometry.location.F));
@@ -77,7 +86,6 @@
 	radius : 60
 	});
 	
-	var opValue = 0.2;
 	heatmap.set('gradient',['rgba(0, 255, 255, 0)',newColor1, newColor2]);
 	heatmap.setMap(map);
 	}
@@ -141,6 +149,9 @@
 
 		}
 
+		hourDistance = document.getElementById('HourSlider').value;
+		
+		
 		initialize();
 	}
 	</script>
@@ -168,14 +179,14 @@
 	<br></br>
 	<br></br>
 		<div id = sliders>
-			<p align ="center"> Hour of the day </p>	
+			<p align ="center"> Distance from optimal time</p>	
 			
 			<img src="00.png" height="15" width="15" />
-			<img src="24.png" height="15" width="15" style = "float :right" />
+			<img src="12.png" height="15" width="15" style = "float :right" />
 			
 			<div class ="slider"align = "center">			
 				
-				<form ><input type="range" id = "HourSlider" min="00" max="24" step="1" ></form>
+				<form ><input type="range" id = "HourSlider" min="00" max="12" step="1" ></form>
 				
 			</div>
 			
