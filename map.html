@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html>
+	<head>
+	<title>GOTHENBURG STARTUP ARENA</title>		
+	<link href ="main.css" rel ="stylesheet"></link>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?libraries=places">
+	</script>
+	<script type="text/javascript">	
+	var map;
+	var service;
+	var PLACES_LIMIT = 10;
+	
+		function handleSearchResults(results,status){
+		
+		var positionScreenOne = new google.maps.LatLng(57.707065, 11.968627);
+		var positionScreenTwo = new google.maps.LatLng(57.708545, 11.973627);
+			if (status == google.maps.places.PlacesServiceStatus.OK) {
+				for (var i = 0; i < PLACES_LIMIT; i++) {
+					var marker = new google.maps.Marker({
+					position: results[i].geometry.location, 
+					map:map
+					});
+					
+				}
+		
+			}
+			
+			var markerScreen1 = new google.maps.Marker({
+							title: "SCREEN 1",
+							position: positionScreenOne,
+							icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+							snippet: "10000 people interested",
+							map:map
+							});
+							
+			var markerScreen2 = new google.maps.Marker({	
+							title: "SCREEN 2",
+							position: positionScreenTwo,
+							icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",							
+							map:map
+							});
+
+		}
+	
+		function performSearch () {
+		
+		var request = {
+			bounds: map.getBounds(),
+			types: ['food']};
+		service.radarSearch(request, handleSearchResults);
+		
+		
+		}
+	
+		function initialize () {	
+		
+			
+			var mapOptions = {
+				center: new google.maps.LatLng(57.708037,11.9683625),
+				zoom: 16,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	
+	service = new google.maps.places.PlacesService(map);
+	//wait for bounds to exist and then performSearch (cannot do with listener otherwise I'll call this for every zoom in/out)
+	google.maps.event.addListenerOnce(map, 'bounds_changed', performSearch);
+	
+	
+	}
+	
+	</script>
+</head>
+
+<body onload="initialize()">
+
+<div class="header-wrap">
+		<header>
+			<nav class="main-nav">
+    			<ul>
+        			<li><a id="group_name" href="#">OPTIMUS PRIMATES</a></li>
+        			<li><a id="about_us" href="#">ABOUT US</a></li>
+        		</ul>
+    		</nav>
+		</header>
+</div>
+
+<div id = "container">
+
+	<div id = "map-canvas"></div>
+	<div id = "sliders-canvas">	
+
+	<br></br>
+	<br></br>
+	<br></br>
+		<div id = sliders>
+			<p align ="center"> Hour of the day </p>	
+			
+			<img src="00.png" height="15" width="15" />
+			<img src="24.png" height="15" width="15" style = "float :right" />
+			
+			<div class ="slider"align = "center">			
+				
+				<form ><input type="range" id = "HourSlider" min="00" max="24" step="1" ></form>
+				
+			</div>
+			
+			<br></br>
+			<p align ="center"> Weather </p>	
+			
+			<img src="sun.png" height="42" width="42" />
+			<img src="rain.png" height="42" width="42" style = "float :right" />
+			
+			<div class ="slider"align = "center">
+				
+				<form ><input type="range" id = "HourSlider" min="1" max="2" step="1" ></form>
+				
+			</div>
+			<br></br>
+			
+		</div>
+	</div>
+	
+
+</div>
+<div class ="footer-wrap">
+<footer> <span style ="color:#FFF"> GOTHENBURG STARTUP HACK </span></footer>
+</div>
+	
+
+</body>
+</html> 
