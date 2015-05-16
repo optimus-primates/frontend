@@ -55,6 +55,26 @@ body {
 	border-bottom-color: #FFF;
 }
 
+input[type=radio] {
+    display:none;
+  }
+
+  input[type=radio] + label
+   {
+       background: #999;
+
+       display:inline-block;
+       padding: 0 0 0 0px;
+   }
+
+   input[type=radio]:checked + label
+    {
+        background: #0080FF;
+
+        display:inline-block;
+        padding: 0 0 0 0px;
+    }
+
 #container {
 
 	height: 100%; 
